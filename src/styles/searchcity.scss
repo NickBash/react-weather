@@ -1,0 +1,14 @@
+.search-city {
+  border: 1px solid gray;
+  padding: 10px;
+  border-radius: 4px;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #002693;
+  }
+
+  &:hover {
+    border: 1px solid #002693;
+  }
+}

@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {getWeatherDays, getWeatherOneDay} from "./asyncActions/weatherApi";
+
+import 'primeflex/primeflex.css'
+import './App.scss';
+import Index from "./pages";
 
 function App() {
+  const dispatch = useDispatch()
+  const { status, weatherOneDay, city, weatherDays, coord} = useSelector(state => state.data)
+
+  const clickHandler = () => {
+    console.log(weatherOneDay)
+  }
+
+  const clickHandler1 = () => {
+    dispatch(getWeatherDays(coord))
+  }
+
+  const clickHandler2 = () => {
+    console.log(weatherDays)
+  }
+
+  useEffect(() => {
+    dispatch(getWeatherOneDay(city))
+  }, [dispatch, city])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App min-w-full min-h-screen'>
+      <Index />
+      <div className="absolute bottom-0 right-0">
+        <button onClick={clickHandler}>ConsoleOneDay</button>
+        <button onClick={clickHandler1}>GetDays</button>
+        <button onClick={clickHandler2}>ConsoleDays</button>
+      </div>
     </div>
   );
 }
