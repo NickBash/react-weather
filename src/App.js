@@ -8,7 +8,7 @@ import Index from "./pages";
 
 function App() {
   const dispatch = useDispatch()
-  const { status, weatherOneDay, city, weatherDays, coord} = useSelector(state => state.data)
+  const {weatherOneDay, city, weatherDays, coord} = useSelector(state => state.data)
 
   const clickHandler = () => {
     console.log(weatherOneDay)
@@ -22,6 +22,10 @@ function App() {
     console.log(weatherDays)
   }
 
+  const clickHandler3 = () => {
+
+  }
+
   useEffect(() => {
     dispatch(getWeatherOneDay(city))
   }, [dispatch, city])
@@ -33,6 +37,7 @@ function App() {
         <button onClick={clickHandler}>ConsoleOneDay</button>
         <button onClick={clickHandler1}>GetDays</button>
         <button onClick={clickHandler2}>ConsoleDays</button>
+        <button onClick={clickHandler3}>getGeocode</button>
       </div>
     </div>
   );
