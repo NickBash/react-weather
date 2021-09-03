@@ -1,23 +1,31 @@
-import React, {useRef} from 'react';
-import '../styles/searchcity.scss'
-import {Button} from "@material-ui/core";
+import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
-import {setCity} from "../store/dataSlice";
+import {Button, TextField} from "@material-ui/core";
+import '../styles/searchcity.scss'
+import {getWeatherOneDay} from "../asyncActions/weatherApi";
 
 const SearchCity = () => {
 	const dispatch = useDispatch()
-	const inputRef = useRef()
+	const [city, setCity] = useState('')
+
+	const coordCityHandler = (e) => {
+		e.preventDefault()
+		dispatch(getWeatherOneDay(city))
+	}
 
 	return (
-		<div className="flex flex-row mb-5 mt-6">
-			<input
-				ref={inputRef}
-				className="search-city mr-2"
-				type="text"/>
+		<div className="flex flex-row mb-5 mt-6 justify-content-center">
+			<TextField
+				value={city}
+				onChange={(e) => setCity(e.target.value)}
+				label="Ваш город"
+				variant="outlined"
+			/>
 			<Button
-				onClick={(e) => dispatch(setCity(inputRef.current.value))}
+				onClick={(e) => coordCityHandler(e)}
 				variant="contained"
 				color="primary"
+				className="ml-2"
 			>Найти</Button>
 		</div>
 	);

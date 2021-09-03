@@ -8,21 +8,25 @@ const dataSlice = createSlice({
 		weatherDays: {},
 		status: null,
 		statusDays: null,
-		city: 'Москва',
+		city: '',
 		coord: {}
 	},
 	reducers: {
 		setCity(state, {payload}) {
 			state.city = payload
-		}
+		},
+		setCity1(state, {payload}) {
+			state.city = payload
+		},
 	},
 	extraReducers: {
 		[getWeatherOneDay.pending]: (state, action) => {
 			state.status = 'loading'
 		},
 		[getWeatherOneDay.fulfilled]: (state, {payload}) => {
-			state.weatherOneDay = payload
 			state.coord = payload.coord
+			state.city = payload.name
+			state.weatherOneDay = payload
 			state.status = 'success'
 		},
 		[getWeatherOneDay.rejected]: (state, action) => {
@@ -41,5 +45,5 @@ const dataSlice = createSlice({
 	},
 })
 
-export const {setCity} = dataSlice.actions
+export const {setCity, setCity1} = dataSlice.actions
 export default dataSlice.reducer
