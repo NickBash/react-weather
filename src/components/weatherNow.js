@@ -11,6 +11,9 @@ const WeatherNow = ({data}) => {
 
 	return (
 		<div className="card mt-3 mb-3 mx-auto">
+			<Typography className="mb-3 mt-3 text-center" variant='h4' color="textPrimary">
+				Погода сейчас
+			</Typography>
 			<div>
 				<Typography align="center" variant="h4" color="primary">
 					{deg(data.main.temp)}&deg;

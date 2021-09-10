@@ -1,38 +1,55 @@
 import React from 'react';
-import {Card, CardContent, CircularProgress, Typography} from "@material-ui/core";
+import {Card, CardContent, CircularProgress, makeStyles, TableCell, TableRow, Typography} from "@material-ui/core";
 import {deg} from "../utils/deg";
 import moment from "moment";
 
+const useStyles = makeStyles(({
+	root: {
+		maxWidth: '220px',
+		border: '1px solid #d2d2d2',
+		borderRadius: 4,
+		padding: '5px 0'
+	},
+	imgCard: {
+		filter: 'brightness(90%)'
+	},
+	table: {
+		minWidth: 650
+	}
+}))
+
 const WeatherItem = ({data, i}) => {
+	const classes = useStyles()
 	if (Object.keys(data).length === 0) {
 		return <CircularProgress />
 	}
 
-	console.log(data)
+
 
 	return (
-		<Card className="card">
-			<CardContent>
-				<p className="text-center mb-2 font-bold">
-					{moment().add(i, 'd').format("DD.MM.YYYY")}
-				</p>
-				<Typography align="center" variant="subtitle2" color="primary">
-					Ночь: {deg(data.temp.night)}&deg;<br />
-					Утро: {deg(data.temp.morn)}&deg;<br />
-					День: {deg(data.temp.day)}&deg;<br />
-					Вечер: {deg(data.temp.eve)}&deg;
-				</Typography>
-				<Typography align="center">
-					<img className='img-card' src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt=""/>
-				</Typography>
-				<Typography align="center" variant="subtitle2" color="textSecondary">
-					{data.weather[0].description}
-				</Typography>
-				<Typography className="mt-2" align="center" variant="subtitle2" color="inherit">
-					Влажность: {data.humidity}%
-				</Typography>
-			</CardContent>
-		</Card>
+		// <Card className={classes.root}>
+		// 	<CardContent>
+		// 		<p className="text-center mb-2 font-bold">
+		// 			{moment().add(i, 'd').format("DD.MM")}
+		// 		</p>
+		// 		<Typography align="center" variant="subtitle2" color="primary">
+		// 			{deg(Math.min(data.temp.night, data.temp.morn, data.temp.day, data.temp.eve))}&deg;
+		// 			...
+		// 			{deg(Math.max(data.temp.night, data.temp.morn, data.temp.day, data.temp.eve))}&deg;
+		// 		</Typography>
+		// 		<Typography align="center">
+		// 			<img className={classes.imgCard} src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt=""/>
+		// 		</Typography>
+		// 	</CardContent>
+		// </Card>
+		<TableRow key={i}>
+			<TableCell component="th" scope="row">
+				{moment().add(i, 'd').format("DD.MM")}
+			</TableCell>
+			<TableCell align="right">{deg(Math.min(data.temp.night, data.temp.morn, data.temp.day, data.temp.eve))}&deg;</TableCell>
+			<TableCell align="right">{deg(Math.max(data.temp.night, data.temp.morn, data.temp.day, data.temp.eve))}&deg;</TableCell>
+			<TableCell align="right"><img className={classes.imgCard} src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt=""/></TableCell>
+		</TableRow>
 	);
 };
 
