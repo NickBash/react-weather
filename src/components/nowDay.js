@@ -1,17 +1,16 @@
 import React from 'react';
-import {makeStyles} from "@material-ui/core";
-import {useSelector} from "react-redux";
+import {Divider, makeStyles} from "@material-ui/core";
 import moment from "moment";
 import {deg} from "../utils/deg";
+import Swiper from "./swiper";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
 		background: `url('/images/sky.jpg') no-repeat`,
 		backgroundPosition: 'top center',
-		backgroundSize: '100%',
 		borderRadius: 6,
 		padding: theme.spacing(3),
-		color: 'white'
+		color: 'white',
 	},
 	title: {
 		fontSize: 16,
@@ -30,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 	temp: {
 		fontSize: 48
 	},
-	img : {
+	img: {
 		width: '36px',
 		height: '36px',
 		color: "white",
@@ -44,9 +43,11 @@ const useStyles = makeStyles((theme) => ({
 		color: 'white',
 	},
 	descr: {
-		textTransform: 'capitalize',
 		fontSize: 14,
-		marginBottom: 4
+		marginBottom: 4,
+		'&::first-letter': {
+			textTransform: 'capitalize',
+		}
 	},
 	iconOther: {
 		opacity: 0.7,
@@ -62,6 +63,10 @@ const useStyles = makeStyles((theme) => ({
 		display: 'flex',
 		alignItems: 'center',
 		marginRight: theme.spacing(2)
+	},
+	line: {
+		background: 'rgba(255,255,255,.3)',
+		margin: theme.spacing(3, 0, 3, 0)
 	}
 }))
 
@@ -94,9 +99,11 @@ const NowDay = ({data, city}) => {
 					</div>
 					<div className={classes.blockOtherEl}>
 						<img className={classes.iconOther} src="/images/mini-icons/pressure.png" alt=""/>
-						<span>{Math.round(data.main.pressure/1.333)} мм рт.ст.</span>
+						<span>{Math.round(data.main.pressure / 1.333)} мм рт.ст.</span>
 					</div>
 				</div>
+				<Divider className={classes.line} />
+				<Swiper />
 			</div>
 		);
 	}

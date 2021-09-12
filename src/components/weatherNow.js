@@ -7,8 +7,6 @@ const WeatherNow = ({data}) => {
 		return <CircularProgress />
 	}
 
-	console.log(data)
-
 	return (
 		<div className="card mt-3 mb-3 mx-auto">
 			<Typography className="mb-3 mt-3 text-center" variant='h4' color="textPrimary">
