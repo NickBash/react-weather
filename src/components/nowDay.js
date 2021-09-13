@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: 6,
 		padding: theme.spacing(3),
 		color: 'white',
+		[theme.breakpoints.down('xs')]: {
+			textAlign: 'center',
+		},
 	},
 	title: {
 		fontSize: 16,
@@ -24,7 +27,10 @@ const useStyles = makeStyles((theme) => ({
 	blockWeather: {
 		display: 'flex',
 		padding: theme.spacing(2, 0),
-		alignItems: 'center'
+		alignItems: 'center',
+		[theme.breakpoints.down('xs')]: {
+			display: 'block',
+		},
 	},
 	temp: {
 		fontSize: 48
@@ -57,12 +63,21 @@ const useStyles = makeStyles((theme) => ({
 	},
 	blockOther: {
 		display: 'flex',
-		alignItems: 'center'
+		alignItems: 'center',
+		[theme.breakpoints.down('xs')]: {
+			display: 'block',
+		},
 	},
 	blockOtherEl: {
 		display: 'flex',
 		alignItems: 'center',
-		marginRight: theme.spacing(2)
+		margin: theme.spacing(1, 2, 1, 0),
+		[theme.breakpoints.down('xs')]: {
+			justifyContent: 'center'
+		},
+		"&:last-child": {
+			marginRight: 0
+		}
 	},
 	line: {
 		background: 'rgba(255,255,255,.3)',
@@ -79,8 +94,10 @@ const NowDay = ({data, city}) => {
 				<p className={classes.title}>{city}</p>
 				<p className={classes.time}>Сейчас {moment().format("HH:mm")}</p>
 				<div className={classes.blockWeather}>
-					<div className={classes.temp}>{deg(data.main.temp)}&deg;</div>
-					<img className={classes.img} src="/images/mini-icons/icons8-солнце-50.png" alt=""/>
+					<div className={classes.temp}>
+						{deg(data.main.temp)}&deg;
+						<img className={classes.img} src={`/images/mini-icons/${data.weather[0].icon}.png`} alt=""/>
+					</div>
 					<div>
 						<p className={classes.descr}>{data.weather[0].description}</p>
 						<p className={classes.feelsLike}>

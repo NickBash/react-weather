@@ -1,13 +1,15 @@
 import React from 'react';
 import WeatherItems from "../components/weatherItems";
 import {useSelector} from "react-redux";
-import {Box, CircularProgress, Container, Divider, Grid, makeStyles, Typography} from "@material-ui/core";
-import WeatherNow from "../components/weatherNow";
+import {CircularProgress, Container, Grid, makeStyles, Typography} from "@material-ui/core";
 import Navbar from "../components/navbar";
 import NowDay from "../components/nowDay";
+import Alerts from "../components/alerts";
+import TableWeather from "../components/tableWeather";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
+		flexGrow: 1,
 		paddingTop: theme.spacing(3),
 	},
 	card: {}
@@ -42,18 +44,37 @@ const Index = () => {
 
 		<div>
 			<Navbar/>
+			<Container>
 			{status === 'loading'
 				? <CircularProgress/>
 				: status === 'success'
-					? <Container className={classes.root}>
-						<Grid className={classes.card} xs={12} sm={8} md={6} xl={6} item>
-							<NowDay data={weatherOneDay} city={city}/>
-						</Grid>
-					</Container>
+					?
+					<>
+							<Grid container className={classes.root} spacing={2}>
+								<Grid className={classes.card} xs={12} sm={8} md={6} xl={6} item>
+									<NowDay data={weatherOneDay} city={city}/>
+								</Grid>
+								{statusDays === 'success'
+									?
+									<Grid className={classes.card} xs={12} sm={4} md={6} xl={6} item>
+										<Alerts alerts={weatherDays.alerts}/>
+									</Grid>
+									: null
+								}
+							</Grid>
+
+						{statusDays === 'success'
+							? weatherDays.daily.map(day =>
+									<TableWeather key={day.dt} day={day} />
+								)
+							: null
+						}
+					</>
 					: <Typography align="center" variant="h5" color="textSecondary">Ничего не найдено</Typography>
 			}
+			</Container>
 		</div>
 	)
 }
 
-export default Index;
+export default Index

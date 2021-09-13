@@ -9,9 +9,10 @@ import {deg} from "../utils/deg";
 const useStyles = makeStyles((theme) => ({
 	block: {
 		overflow: 'hidden',
+		marginRight: -24
 	},
 	scroller: {
-		marginBottom: -17
+		marginBottom: -17,
 	},
 	container: {
 		userSelect: 'none',
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	item: {
 		display: 'inline-block',
-		padding: theme.spacing(0, 1, 0, 1),
+		padding: '0 9px',
 		textAlign: "center"
 	},
 	icon: {
@@ -73,10 +74,10 @@ const Swiper = () => {
 					<ul className={classes.container}>
 						{
 							weatherDays.hourly.map(item =>
-								<div className={classes.content}>
-									<li className={classes.item} key={item.dt}>
+								<div className={classes.content} key={item.dt}>
+									<li className={classes.item}>
 										<p className={classes.time}>{moment.unix(item.dt).format('HH:mm')}</p>
-										<img className={classes.icon} src="/images/mini-icons/icons8-легкий-дождь-50.png" alt=""/>
+										<img className={classes.icon} src={`/images/mini-icons/${item.weather[0].icon}.png`} alt=""/>
 										<p className={classes.temp}>{deg(item.temp)}&deg;</p>
 									</li>
 									{moment.unix(item.dt).format('HH:mm') === '23:00'
