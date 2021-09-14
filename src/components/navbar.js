@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
 		background: 'white',
 		boxShadow: 'none',
 		borderBottom: '1px solid #d2d2d2',
+		[theme.breakpoints.down('md')]: {
+			flexDirection: 'column',
+			justifyContent: 'center'
+		},
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
@@ -23,7 +27,10 @@ const useStyles = makeStyles((theme) => ({
 		color: 'black',
 		fontWeight: 600,
 		fontSize: 30,
-		letterSpacing: -0.5
+		letterSpacing: -0.5,
+		[theme.breakpoints.down('md')]: {
+			textAlign: 'center',
+		},
 	},
 	search: {
 		position: 'relative',
@@ -60,6 +67,12 @@ const useStyles = makeStyles((theme) => ({
 			width: '20ch',
 		},
 	},
+	button: {
+		margin: 0,
+		[theme.breakpoints.down('md')]: {
+			margin: '10px auto',
+		},
+	}
 
 }))
 
@@ -101,7 +114,7 @@ const Navbar = () => {
 								onClick={(e) => coordCityHandler(e)}
 								variant="contained"
 								color="primary"
-								className="ml-2"
+								className={classes.button}
 							>Найти</Button>
 						</Grid>
 					</Container>
