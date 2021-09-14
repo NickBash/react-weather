@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 		background: 'white',
 		boxShadow: 'none',
 		borderBottom: '1px solid #d2d2d2',
-		[theme.breakpoints.down('md')]: {
+		[theme.breakpoints.down('sm')]: {
 			flexDirection: 'column',
 			justifyContent: 'center'
 		},
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 		fontWeight: 600,
 		fontSize: 30,
 		letterSpacing: -0.5,
+		textAlign: 'left',
 		[theme.breakpoints.down('sm')]: {
 			textAlign: 'center',
 		},
