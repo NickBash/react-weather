@@ -1,5 +1,4 @@
 import React from 'react';
-import WeatherItems from "../components/weatherItems";
 import {useSelector} from "react-redux";
 import {CircularProgress, Container, Grid, makeStyles, Typography} from "@material-ui/core";
 import Navbar from "../components/navbar";
@@ -12,41 +11,36 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		paddingTop: theme.spacing(3),
 	},
-	card: {}
+	card: {},
+	notFound: {
+		marginTop: 20
+	},
+	progress: {
+		textAlign: 'center',
+		marginTop: 70,
+		fontSize: 30
+	}
 }))
 
 const Index = () => {
 	const classes = useStyles()
 	const {city, weatherOneDay, weatherDays, status, statusDays} = useSelector(state => state.data)
 
-	return (
-		// <div>
-		// 	<SearchCity />
-		// 	<Typography className="mb-3 text-center mt-3" variant='h2' color="primary">
-		// 		{city}
-		// 	</Typography>
-		// 	{
-		// 		status === 'loading'
-		// 			? <CircularProgress />
-		// 			: status === 'success'
-		// 			? <WeatherNow data={weatherOneDay} />
-		// 			: <Typography align="center" variant="h5" color="textSecondary">Ничего не найдено</Typography>
-		// 	}
-		// 	{
-		// 		statusDays === 'loading'
-		// 			? <Box mt={5} textAlign="center"><CircularProgress /></Box>
-		// 			: statusDays === 'success'
-		// 			? <WeatherItems data={weatherDays} />
-		// 			: null
-		// 	}
-		// 	{/*<WeatherItems data={weatherDays} />*/}
-		// </div>
+	if (weatherOneDay.message) {
+		return (
+			<>
+				<Navbar/>
+				<div className={classes.progress}>Ошибка при поиске вашего города</div>
+			</>
+		)
+	}
 
+	return (
 		<div>
 			<Navbar/>
 			<Container>
 			{status === 'loading'
-				? <CircularProgress/>
+				? <div className={classes.progress}><CircularProgress/></div>
 				: status === 'success'
 					?
 					<>
@@ -59,7 +53,11 @@ const Index = () => {
 									<Grid className={classes.card} xs={12} sm={4} md={6} xl={6} item>
 										<Alerts alerts={weatherDays.alerts}/>
 									</Grid>
-									: null
+									: statusDays === 'loading'
+										? <Grid className={classes.card} xs={12} sm={4} md={6} xl={6} item>
+										<div className={classes.progress}><CircularProgress/></div>
+									</Grid>
+										: null
 								}
 							</Grid>
 
@@ -67,10 +65,10 @@ const Index = () => {
 							? weatherDays.daily.map(day =>
 									<TableWeather key={day.dt} day={day} />
 								)
-							: null
+							: <div className={classes.progress}><CircularProgress/></div>
 						}
 					</>
-					: <Typography align="center" variant="h5" color="textSecondary">Ничего не найдено</Typography>
+					: <Typography className={classes.notFound} align="center" variant="h5" color="textSecondary">Ничего не найдено</Typography>
 			}
 			</Container>
 		</div>

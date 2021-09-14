@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {alpha, AppBar, Button, InputBase, makeStyles, Toolbar, Typography} from "@material-ui/core";
+import React, {useState} from 'react';
+import {alpha, AppBar, Button, Container, Grid, InputBase, makeStyles, Toolbar, Typography} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search'
 import {useDispatch} from "react-redux";
 import {getWeatherOneDay} from "../asyncActions/weatherApi";
@@ -7,11 +7,12 @@ import {getWeatherOneDay} from "../asyncActions/weatherApi";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
+		boxShadow: '1px 3px 7px rgb(0 0 0 / 20%)'
 	},
 	appBar: {
 		background: 'white',
 		boxShadow: 'none',
-		borderBottom: '1px solid #d2d2d2'
+		borderBottom: '1px solid #d2d2d2',
 	},
 	menuButton: {
 		marginRight: theme.spacing(2),
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: theme.shape.borderRadius,
 		backgroundColor: alpha(theme.palette.common.black, 0.08),
 		marginRight: theme.spacing(2),
-		marginLeft: 0,
+		marginLeft: theme.spacing(1),
 		width: '100%',
 		[theme.breakpoints.up('sm')]: {
 			marginLeft: theme.spacing(3),
@@ -52,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	inputInput: {
 		padding: theme.spacing(1, 0, 1, 1),
-		// vertical padding + font size from searchIcon
 		paddingRight: `calc(1em + ${theme.spacing(4)}px)`,
 		transition: theme.transitions.create('width'),
 		width: '100%',
@@ -69,42 +69,42 @@ const Navbar = () => {
 	const [city, setCity] = useState('')
 
 	const coordCityHandler = (e) => {
-		//e.preventDefault()
+		e.preventDefault()
 		dispatch(getWeatherOneDay(city))
 	}
-
-	useEffect(() => {
-		coordCityHandler()
-	}, [])
 
 	return (
 		<div className={classes.root}>
 			<AppBar className={classes.appBar} position="static">
 				<Toolbar>
-					<Typography variant="h6" className={classes.title}>
-						Погода
-					</Typography>
-					<div className={classes.search}>
-						<div className={classes.searchIcon}>
-							<SearchIcon />
-						</div>
-						<InputBase
-							value={city}
-							onChange={(e) => setCity(e.target.value)}
-							placeholder="Город…"
-							classes={{
-								root: classes.inputRoot,
-								input: classes.inputInput,
-							}}
-							inputProps={{ 'aria-label': 'search' }}
-						/>
-					</div>
-					<Button
-						onClick={(e) => coordCityHandler(e)}
-						variant="contained"
-						color="primary"
-						className="ml-2"
-					>Найти</Button>
+					<Container>
+						<Grid container alignItems='center'>
+							<Typography variant="h6" className={classes.title}>
+								Погода
+							</Typography>
+							<div className={classes.search}>
+								<div className={classes.searchIcon}>
+									<SearchIcon />
+								</div>
+								<InputBase
+									value={city}
+									onChange={(e) => setCity(e.target.value)}
+									placeholder="Город…"
+									classes={{
+										root: classes.inputRoot,
+										input: classes.inputInput,
+									}}
+									inputProps={{ 'aria-label': 'search' }}
+								/>
+							</div>
+							<Button
+								onClick={(e) => coordCityHandler(e)}
+								variant="contained"
+								color="primary"
+								className="ml-2"
+							>Найти</Button>
+						</Grid>
+					</Container>
 				</Toolbar>
 			</AppBar>
 		</div>

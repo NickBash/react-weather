@@ -1,19 +1,20 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import {deg} from "../utils/deg";
-import moment from "moment";
 import {DateTime} from "luxon"
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		marginTop: theme.spacing(3),
+		margin: theme.spacing(3, 0),
 		padding: '12px 24px',
 		background: '#ffffff',
-		borderRadius: 5
+		borderRadius: 5,
+		boxShadow: '0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)',
 	},
 	table: {
 		marginTop: 15,
-		textAlign: 'left'
+		textAlign: 'left',
 	},
 	textSecondary: {
 		color: '#939cb1',
@@ -40,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 	tableCell: {
 		borderBottom: '0px',
-		fontWeight: 500
+		fontWeight: 500,
+		fontSize: 16
 	},
 	cellBottom: {
 		borderTop: '1px solid #e5e5e5',
@@ -49,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	temp: {
 		color: '#000000',
-		fontSize: 14,
+		fontSize: 16,
 		marginTop: 4
 	},
 	blockWeather: {
@@ -74,8 +76,6 @@ const TableWeather = ({day}) => {
 	const classes = useStyles()
 
 	const date = DateTime.fromSeconds(day.dt).setLocale("ru")
-
-	console.log(date)
 
 	const itemBottom = () =>
 		<div className={classes.cellBottom}>
@@ -110,11 +110,9 @@ const TableWeather = ({day}) => {
 						<TableRow>
 							<TableCell
 								align="left"
-								// className={
-								// 	(date.toFormat('cccc') === 'суббота' || date.toFormat('cccc') === 'воскресенье'))
-								// 	? classes.dayOff
-								// 	: classes.weekDay
-								// }
+								className={clsx(classes.blockWeather, {
+									[classes.dayOff]: date.toFormat('cccc') === 'суббота' || date.toFormat('cccc') === 'воскресенье',
+								})}
 							>
 								<strong className={classes.number}>
 									{date.toFormat('dd')}

@@ -7,9 +7,9 @@ const dataSlice = createSlice({
 		weatherOneDay: {},
 		weatherDays: {},
 		status: null,
-		statusDays: null,
-		city: '',
-		coord: {}
+		statusDays: 'loading',
+		city: 'Москва',
+		coord: {lon: 37.6156, lat: 55.7522}
 	},
 	reducers: {
 		setCity(state, {payload}) {

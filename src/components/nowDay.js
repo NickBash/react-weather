@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: 6,
 		padding: theme.spacing(3),
 		color: 'white',
+		boxShadow: '0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%)',
 		[theme.breakpoints.down('xs')]: {
 			textAlign: 'center',
 		},
@@ -87,6 +88,9 @@ const useStyles = makeStyles((theme) => ({
 
 const NowDay = ({data, city}) => {
 	const classes = useStyles()
+
+	if (!data && !city) return null
+	if (data.cod && data.message) return null
 
 	if (data) {
 		return (
