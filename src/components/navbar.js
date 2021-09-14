@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 		background: 'white',
 		boxShadow: 'none',
 		borderBottom: '1px solid #d2d2d2',
-		[theme.breakpoints.down('sm')]: {
+		[theme.breakpoints.down('xs')]: {
 			flexDirection: 'column',
 			justifyContent: 'center'
 		},
@@ -29,8 +29,9 @@ const useStyles = makeStyles((theme) => ({
 		fontSize: 30,
 		letterSpacing: -0.5,
 		textAlign: 'left',
-		[theme.breakpoints.down('sm')]: {
+		[theme.breakpoints.down('xs')]: {
 			textAlign: 'center',
+			margin: '10px 0'
 		},
 	},
 	search: {
@@ -70,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	button: {
 		margin: 0,
-		[theme.breakpoints.down('md')]: {
+		[theme.breakpoints.down('sm')]: {
 			margin: '10px auto',
 		},
 	}
@@ -93,9 +94,9 @@ const Navbar = () => {
 				<Toolbar>
 					<Container>
 						<Grid container alignItems='center'>
-							<Typography variant="h6" className={classes.title}>
+							<h6 className={classes.title}>
 								Погода
-							</Typography>
+							</h6>
 							<div className={classes.search}>
 								<div className={classes.searchIcon}>
 									<SearchIcon />
