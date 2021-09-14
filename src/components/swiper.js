@@ -2,9 +2,9 @@ import React from 'react';
 import {Divider, makeStyles} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import {ScrollMenu} from "react-horizontal-scrolling-menu";
-import moment from "moment";
 import useDrag from "../hooks/useDrag";
 import {deg} from "../utils/deg";
+import {DateTime} from "luxon";
 
 const useStyles = makeStyles((theme) => ({
 	block: {
@@ -76,11 +76,11 @@ const Swiper = () => {
 							weatherDays.hourly.map(item =>
 								<div className={classes.content} key={item.dt}>
 									<li className={classes.item}>
-										<p className={classes.time}>{moment.unix(item.dt).format('HH:mm')}</p>
+										<p className={classes.time}>{DateTime.fromSeconds(item.dt).toFormat('HH:mm')}</p>
 										<img className={classes.icon} src={`/images/mini-icons/${item.weather[0].icon}.png`} alt=""/>
 										<p className={classes.temp}>{deg(item.temp)}&deg;</p>
 									</li>
-									{moment.unix(item.dt).format('HH:mm') === '23:00'
+									{DateTime.fromSeconds(item.dt).toFormat('HH:mm') === '23:00'
 										? <Divider className={classes.line} orientation='vertical'/>
 										: null}
 								</div>

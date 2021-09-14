@@ -1,6 +1,5 @@
 import React from 'react';
 import {Divider, makeStyles} from "@material-ui/core";
-import moment from "moment";
 import {deg} from "../utils/deg";
 import Swiper from "./swiper";
 
@@ -96,7 +95,7 @@ const NowDay = ({data, city}) => {
 		return (
 			<div className={classes.root}>
 				<p className={classes.title}>{city}</p>
-				<p className={classes.time}>Сейчас {moment().format("HH:mm")}</p>
+				{/*<p className={classes.time}>Сейчас {DateTime.now().toFormat('HH:mm')}</p>*/}
 				<div className={classes.blockWeather}>
 					<div className={classes.temp}>
 						{deg(data.main.temp)}&deg;

@@ -4,9 +4,6 @@ import {useEffect, useRef} from "react";
 import {getWeatherDays} from "./asyncActions/weatherApi";
 
 import './App.scss';
-import 'primeflex/primeflex.css'
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 function App() {
 	const dispatch = useDispatch()
